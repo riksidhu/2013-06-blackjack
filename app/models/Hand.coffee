@@ -14,8 +14,11 @@ class window.Hand extends Backbone.Collection
     @each (card) ->
       card.set('revealed', true)
   add17: ->
+    debugger;
     while @scores() < 17
       @hit()
+    if @scores() < 21 then @trigger('compare')
+    console.log('triggered')
   stand: ->
     @trigger 'stand'
 
