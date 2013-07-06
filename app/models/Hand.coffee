@@ -4,10 +4,21 @@ class window.Hand extends Backbone.Collection
 
   initialize: (array, @deck, @isDealer) ->
 
-  hit: -> @add(@deck.pop()).last()
-  
-  stand: -> (@get(@deck)
-  console.log @get(@deck))
+  hit: ->
+    @add(@deck.pop()).last();
+    if @scores() > 21 then @bust()
+    console.log(@scores())
+  bust: ->
+    @trigger 'bust'
+  reveal: ->
+    @each (card) ->
+      card.set('revealed', true)
+  add17: ->
+    while @scores() < 17
+      @hit()
+  stand: ->
+    @trigger 'stand'
+
   scores: ->
     # The scores are an array of potential scores.
     # Usually, that array contains one element. That is the only score.
