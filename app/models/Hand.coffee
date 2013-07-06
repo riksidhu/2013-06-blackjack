@@ -6,21 +6,20 @@ class window.Hand extends Backbone.Collection
 
   hit: ->
     @add(@deck.pop()).last();
-    if @scores() > 21 then @bust()
-    console.log(@scores())
+    if @scores()[0] > 21 then @bust()
   bust: ->
     @trigger 'bust'
+    @trigger 'resetMe'
   reveal: ->
     @each (card) ->
       card.set('revealed', true)
   add17: ->
-    debugger;
-    while @scores() < 17
+    while @scores()[0] < 17
       @hit()
-    if @scores() < 21 then @trigger('compare')
-    console.log('triggered')
+    if @scores()[0] < 22 then @trigger('compare')
   stand: ->
     @trigger 'stand'
+
 
   scores: ->
     # The scores are an array of potential scores.
