@@ -5,10 +5,12 @@ class window.Hand extends Backbone.Collection
   initialize: (array, @deck, @isDealer) ->
 
   hit: ->
-    @add(@deck.pop()).last();
+    @add(@deck.pop()).last()
+    console.log(@scores()[0])
     if @scores()[0] > 21 then @bust()
   bust: ->
     @trigger 'bust'
+    console.log('bust')
     @trigger 'resetMe'
   reveal: ->
     @each (card) ->
